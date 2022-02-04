@@ -60,7 +60,7 @@ namespace RDPConnectLib
             for (int i = 0; i < serverList.Length; i++)
             {
                 PingReply pingReply = ping.Send(serverList[i]);
-                haveAnInternetConnection = (pingReply.Status == IPStatus.Success);
+                haveAnInternetConnection = pingReply.Status == IPStatus.Success;
                 if (haveAnInternetConnection)
                     break;
             }
