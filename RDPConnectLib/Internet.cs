@@ -3,7 +3,7 @@ using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 
 
-namespace RDP_Server
+namespace RDPConnectLib
 {
     public static class Internet
     {

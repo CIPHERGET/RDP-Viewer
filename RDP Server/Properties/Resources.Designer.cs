@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RDP_Server.Properties {
+namespace RDPConnectLib.Properties {
     using System;
     
     

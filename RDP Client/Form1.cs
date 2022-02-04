@@ -34,7 +34,8 @@ namespace RDP_Client
             Disconnect(this.RDPViewer);
            
             EnterKey.Enabled = true;
-            
+            toolStripTextBox.Visible = true;
+
             toolStripLabel1.Text = "Server ID:";
             toolStripLabel1.ForeColor = Color.Black;
         }
@@ -43,13 +44,14 @@ namespace RDP_Client
         {
             try
             {
-                
-                    string path = openKey.FileName;
+
+                string path = openKey.FileName;
                     using (StreamReader sr = new StreamReader(path))
                     {
-                     Connect(await sr.ReadToEndAsync(), RDPViewer, "", "password");
-                        EnterKey.Enabled = false;
-                        toolStripLabel1.Text = "Server: " + Path.GetFileNameWithoutExtension(path);
+                     Connect(await sr.ReadToEndAsync(), RDPViewer, "", toolStripTextBox.Text);
+                    EnterKey.Enabled = false;
+                    toolStripTextBox.Visible = false;
+                    toolStripLabel1.Text = "Server: " + Path.GetFileNameWithoutExtension(path);
                         toolStripLabel1.ForeColor = Color.DarkGreen;
 
                     //ShowCursor(false);

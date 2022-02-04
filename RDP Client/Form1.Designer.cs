@@ -31,11 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.EnterKey = new System.Windows.Forms.ToolStripButton();
-            this.ConnectServer = new System.Windows.Forms.ToolStripButton();
+            this.Exit = new System.Windows.Forms.ToolStripButton();
             this.CloseServer = new System.Windows.Forms.ToolStripButton();
             this.toolStripDecktopSize = new System.Windows.Forms.ToolStripButton();
-            this.Exit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.ConnectServer = new System.Windows.Forms.ToolStripButton();
             this.openKey = new System.Windows.Forms.OpenFileDialog();
             this.RDPViewer = new AxRDPCOMAPILib.AxRDPViewer();
             this.toolStrip1.SuspendLayout();
@@ -44,25 +45,25 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.Color.White;
+            this.toolStrip1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.EnterKey,
-            this.ConnectServer,
+            this.Exit,
             this.CloseServer,
             this.toolStripDecktopSize,
-            this.Exit,
-            this.toolStripLabel1});
-            this.toolStrip1.Location = new System.Drawing.Point(347, 4);
+            this.toolStripTextBox,
+            this.toolStripLabel1,
+            this.ConnectServer});
+            this.toolStrip1.Location = new System.Drawing.Point(320, 1);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(290, 32);
+            this.toolStrip1.Size = new System.Drawing.Size(320, 32);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -76,19 +77,20 @@
             this.EnterKey.Text = "Enter Key";
             this.EnterKey.Click += new System.EventHandler(this.EnterKey_Click);
             // 
-            // ConnectServer
+            // Exit
             // 
-            this.ConnectServer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ConnectServer.Image = ((System.Drawing.Image)(resources.GetObject("ConnectServer.Image")));
-            this.ConnectServer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ConnectServer.Name = "ConnectServer";
-            this.ConnectServer.Size = new System.Drawing.Size(28, 29);
-            this.ConnectServer.Text = "Connect";
-            this.ConnectServer.ToolTipText = "Connect to server";
-            this.ConnectServer.Click += new System.EventHandler(this.ConnectServer_Click);
+            this.Exit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Exit.Image = ((System.Drawing.Image)(resources.GetObject("Exit.Image")));
+            this.Exit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(28, 29);
+            this.Exit.Text = "Close client";
+            this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // CloseServer
             // 
+            this.CloseServer.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.CloseServer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.CloseServer.Image = ((System.Drawing.Image)(resources.GetObject("CloseServer.Image")));
             this.CloseServer.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -100,6 +102,7 @@
             // 
             // toolStripDecktopSize
             // 
+            this.toolStripDecktopSize.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripDecktopSize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDecktopSize.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDecktopSize.Image")));
             this.toolStripDecktopSize.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -109,24 +112,31 @@
             this.toolStripDecktopSize.ToolTipText = "Screen display mode";
             this.toolStripDecktopSize.Click += new System.EventHandler(this.DecktopSizeClient);
             // 
-            // Exit
+            // toolStripTextBox
             // 
-            this.Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Exit.Image = ((System.Drawing.Image)(resources.GetObject("Exit.Image")));
-            this.Exit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(28, 29);
-            this.Exit.Text = "Close client";
-            this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            this.toolStripTextBox.Name = "toolStripTextBox";
+            this.toolStripTextBox.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBox.ToolTipText = "Enter password";
             // 
             // toolStripLabel1
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel1.BackColor = System.Drawing.Color.Transparent;
             this.toolStripLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(53, 29);
             this.toolStripLabel1.Text = "Server ID";
+            // 
+            // ConnectServer
+            // 
+            this.ConnectServer.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ConnectServer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ConnectServer.Image = ((System.Drawing.Image)(resources.GetObject("ConnectServer.Image")));
+            this.ConnectServer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ConnectServer.Name = "ConnectServer";
+            this.ConnectServer.Size = new System.Drawing.Size(28, 29);
+            this.ConnectServer.Text = "Connect";
+            this.ConnectServer.ToolTipText = "Connect to server";
+            this.ConnectServer.Click += new System.EventHandler(this.ConnectServer_Click);
             // 
             // openKey
             // 
@@ -173,6 +183,7 @@
         private System.Windows.Forms.ToolStripButton ConnectServer;
         private AxRDPCOMAPILib.AxRDPViewer RDPViewer;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox;
     }
 }
 
