@@ -81,7 +81,8 @@ namespace RDPConnectLib
                 if (currentSession != null)
                 {  
                     Disconnect(currentSession);
-                    currentSession = null;                 
+                    currentSession = null; 
+                    
                 }
 
             }
@@ -92,7 +93,7 @@ namespace RDPConnectLib
         {
             Timer aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(RestartServer);  
-            aTimer.Interval = 5000;
+            aTimer.Interval = 1000;
             aTimer.Enabled = true;  
         }
 

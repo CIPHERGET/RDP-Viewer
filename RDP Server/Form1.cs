@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RDPConnectLib;
@@ -9,48 +10,73 @@ namespace RDP_Server
 
     public partial class Form1 : Form
     {
+        ConnectServer server = new ConnectServer();
 
         public Form1()
         {
             InitializeComponent();
 
-            ConnectServer server = new ConnectServer();
-            server.OpenServer();
-            string ExePath = Application.ExecutablePath;
-            RegistryKey reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
-            //RegistryKey reg_1 = Registry.LocalMachine.CreateSubKey("SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Run");
-            reg.SetValue("RDP Server.exe", ExePath);
-            reg.Close();
+            const string exePath = "RDP Server.exe";
+            const string pathRegistryKeyStartup ="SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
-            notifyIcon1.Visible = false; 
+            using (RegistryKey registryKeyStartup =Registry.CurrentUser.OpenSubKey(pathRegistryKeyStartup, true))
+            {
+                registryKeyStartup.SetValue(exePath, string.Format("\"{0}\"", System.Reflection.Assembly.GetExecutingAssembly().Location));
+            }
+
+            server.OpenServer();
+
             this.notifyIcon1.MouseDoubleClick += new MouseEventHandler(notifyIcon1_MouseClick);
             this.Resize += new EventHandler(this.Form1_Resize);
-            labelName.Text = "Name ID:        " + Environment.MachineName;
-
-
+            
         }
 
-        
+
         private void Form1_Resize(object sender, EventArgs e)
         {
 
             if (WindowState == FormWindowState.Minimized)
             {
                 Hide();
-                notifyIcon1.Visible = true;
-
             }
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
             this.Show();
-            notifyIcon1.Visible = false;
             WindowState = FormWindowState.Normal;
 
         }
-        
-        
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            try {
+                string externalIpString = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                var externalIp = IPAddress.Parse(externalIpString);
+
+                MessageBox.Show("RDP Viewer \ncurrent connection information: \n"
+                + Environment.OSVersion + "\n"
+                + "Name ID:  " + Environment.MachineName + "\n"
+                + "Public IP:  " + externalIp + "\n"
+                + "Local IP:  " + Dns.GetHostByName(Environment.MachineName).AddressList[0].ToString());
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("RDP Viewer \ncurrent connection information: \n" + "Name ID: -  \n" + "Public IP: - \n" + "Local IP: - ");
+            }
+            
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Cipher-Git/RDP-Viewer");
+        }
     }
 }
 
