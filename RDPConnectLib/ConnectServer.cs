@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.IO;
+using System.Net;
 using System.Timers;
 
 namespace RDPConnectLib
@@ -97,8 +98,29 @@ namespace RDPConnectLib
             aTimer.Enabled = true;  
         }
 
-        
-       
+        public string LocalIp()
+        {
+            string ipV4 = "";
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    ipV4 = ip.ToString();
+                }
+            }
+
+            return ipV4;
+        }
+
+
+        public string PublicIp()
+        {
+            string externalIpString = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            ///var externalIp = IPAddress.Parse(externalIpString);
+            return externalIpString;
+        }
+
 
     }
 

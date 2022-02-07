@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RDPConnectLib;
@@ -56,14 +55,12 @@ namespace RDP_Server
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             try {
-                string externalIpString = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
-                var externalIp = IPAddress.Parse(externalIpString);
 
                 MessageBox.Show("RDP Viewer \ncurrent connection information: \n"
                 + Environment.OSVersion + "\n"
                 + "Name ID:  " + Environment.MachineName + "\n"
-                + "Public IP:  " + externalIp + "\n"
-                + "Local IP:  " + Dns.GetHostByName(Environment.MachineName).AddressList[0].ToString());
+                + "Public IP:  " + server.PublicIp() + "\n"
+                + "Local IP:  " + server.LocalIp()); 
 
             }
             catch (Exception)
