@@ -59,13 +59,14 @@ namespace RDP_Server
                 MessageBox.Show("RDP Viewer \ncurrent connection information: \n"
                 + Environment.OSVersion + "\n"
                 + "Name ID:  " + Environment.MachineName + "\n"
-                + "Public IP:  " + server.PublicIp() + "\n"
-                + "Local IP:  " + server.LocalIp()); 
+                + "Public IP:  " + server.GetPublicIp() + "\n"
+                + "Local IP:  " + server.GetLocalIp() + "\n"
+                + "MAC:  " + server.GetMacAddress()); 
 
             }
             catch (Exception)
             {
-                MessageBox.Show("RDP Viewer \ncurrent connection information: \n" + "Name ID: -  \n" + "Public IP: - \n" + "Local IP: - ");
+                MessageBox.Show("RDP Viewer \ncurrent connection information: \n" + "Name ID: -  \n" + "Public IP: - \n" + "Local IP: - \n" + "MAC: - ");
             }
             
         }

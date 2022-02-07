@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Timers;
 
 namespace RDPConnectLib
@@ -98,7 +99,7 @@ namespace RDPConnectLib
             aTimer.Enabled = true;  
         }
 
-        public string LocalIp()
+        public string GetLocalIp()
         {
             string ipV4 = "";
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -106,7 +107,9 @@ namespace RDPConnectLib
             {
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 {
-                    ipV4 = ip.ToString();
+                    ipV4 += ip.ToString();
+                    break;
+
                 }
             }
 
@@ -114,14 +117,26 @@ namespace RDPConnectLib
         }
 
 
-        public string PublicIp()
+        public string GetPublicIp()
         {
             string externalIpString = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
             ///var externalIp = IPAddress.Parse(externalIpString);
             return externalIpString;
         }
 
-
+        public string GetMacAddress()
+        {
+            string macAddresses = "";
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+            return macAddresses;
+        }
     }
 
 }

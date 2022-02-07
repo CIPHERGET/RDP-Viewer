@@ -45,6 +45,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
